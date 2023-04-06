@@ -16,7 +16,7 @@ var quizQuestions = [
           }
 		  
       ],
-	  right:['A','B']
+	  rightAnswers:['A','B']
   },
   {
       question: "Which console would you prefer to play with friends?",

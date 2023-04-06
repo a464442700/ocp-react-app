@@ -8,7 +8,7 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-
+       console.log('quizQuestions',quizQuestions);
         this.state = {
             counter: 0,
             questionId: 1,
@@ -16,7 +16,8 @@ class App extends Component {
             answerOptions: [],
             answer: '',
             answersCount: {},
-            result: ''
+            result: '',
+		    rightAnswers:[]
         };
 
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -28,7 +29,8 @@ class App extends Component {
         );//返回选项随机后的数组
         this.setState({
             question: quizQuestions[0].question,//初始化question
-            answerOptions: shuffledAnswerOptions[0]//返回随机排列后的选项
+            answerOptions: shuffledAnswerOptions[0],//返回随机排列后的选项
+			rightAnswers:quizQuestions[0].rightAnswers
         });
     }
 
@@ -55,7 +57,7 @@ class App extends Component {
 
     handleAnswerSelected(event) {
         this.setUserAnswer(event.currentTarget.value);
-
+       console.log('下一个问题',this.state.questionId,quizQuestions.length )
         if (this.state.questionId < quizQuestions.length) {
             setTimeout(() => this.setNextQuestion(), 300);
         } else {
@@ -72,7 +74,7 @@ class App extends Component {
             answer: answer
         }));
     }
-
+  //完成回答一题则重新刷新状态
     setNextQuestion() {
         const counter = this.state.counter + 1;
         const questionId = this.state.questionId + 1;
@@ -82,6 +84,7 @@ class App extends Component {
             questionId: questionId,
             question: quizQuestions[counter].question,
             answerOptions: quizQuestions[counter].answers,
+			rightAnswer:quizQuestions[counter].rightAnswers,
             answer: ''
         });
     }
@@ -112,6 +115,7 @@ class App extends Component {
                 question={this.state.question}
                 questionTotal={quizQuestions.length}
                 onAnswerSelected={this.handleAnswerSelected}
+				rightAnswer={this.state.rightAnswers}
             />
         );
     }

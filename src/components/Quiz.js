@@ -7,12 +7,16 @@ import AnswerOption from '../components/AnswerOption';
 import {useState} from "react";
 
 function Quiz(props) {
-	console.log('props.answerOptions',props.answerOptions);/*answerOptions是数组*/
+	
+	/*answerOptions是数组*/
+ 
 	   const [checkedState, setCheckedState] = useState(
-        new Array(props.answerOptions.length).fill(false)
+	   new Map
     );
   function renderAnswerOptions(key) {
 	  console.log('key',key);
+	  console.log('props.rightAnswer',props.rightAnswer);
+	   
     return (
       <AnswerOption
         key={key.content}
@@ -22,6 +26,7 @@ function Quiz(props) {
         questionId={props.questionId}
         onAnswerSelected={props.onAnswerSelected}
 		checkedStates={[checkedState, setCheckedState]}
+		rightAnswer={props.rightAnswer}
       />
     );
   }
