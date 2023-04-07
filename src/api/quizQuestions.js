@@ -1,6 +1,6 @@
 var quizQuestions = [
   {
-      question: "答案AB?",
+      question: "答案AB1?",
       answers: [
           {
               type: "A",
@@ -19,73 +19,64 @@ var quizQuestions = [
 	  rightAnswers:['A','B']
   },
   {
-      question: "Which console would you prefer to play with friends?",
+      question: "答案AB2?",
       answers: [
           {
-              type: "Microsoft",
-              content: "X-Box"
+              type: "A",
+              content: "1"
           },
           {
-              type: "Nintendo",
-              content: "Nintendo 64"
+              type: "B",
+              content: "2"
           },
           {
-              type: "Sony",
-              content: "Playstation 1"
+              type: "C",
+              content: "3"
           }
-      ]
+		  
+      ],
+	  rightAnswers:['A','B']
   },
   {
-      question: "Which of these racing franchises would you prefer to play a game from?",
+      question: "答案AB3?",
       answers: [
           {
-              type: "Microsoft",
-              content: "Forza"
+              type: "A",
+              content: "1"
           },
           {
-              type: "Nintendo",
-              content: "Mario Kart"
+              type: "B",
+              content: "2"
           },
           {
-              type: "Sony",
-              content: "Gran Turismo"
+              type: "C",
+              content: "3"
           }
-      ]
+		  
+      ],
+	  rightAnswers:['A','B']
   },
   {
-      question: "Which of these games do you think is best?",
+      question: "答案AB4?",
       answers: [
           {
-              type: "Microsoft",
-              content: "BioShock"
+              type: "A",
+              content: "1"
           },
           {
-              type: "Nintendo",
-              content: "The Legend of Zelda: Ocarina of Time"
+              type: "B",
+              content: "2"
           },
           {
-              type: "Sony",
-              content: "Final Fantasy VII"
+              type: "C",
+              content: "3"
           }
-      ]
-  },
-  {
-      question: "What console would you prefer to own?",
-      answers: [
-          {
-              type: "Microsoft",
-              content: "X-Box One"
-          },
-          {
-              type: "Nintendo",
-              content: "Wii U"
-          },
-          {
-              type: "Sony",
-              content: "Playstation 4"
-          }
-      ]
+		  
+      ],
+	  rightAnswers:['A','B']
   }
+  
+  
 ];
 
 export default quizQuestions;

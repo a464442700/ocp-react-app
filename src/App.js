@@ -1,14 +1,33 @@
 import React, {Component} from 'react';
-import quizQuestions from './api/quizQuestions';
+import initQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 import logo from './svg/oracle.png';
 import './App.css';
+function test(){
+	if (typeof window !== 'undefined') {
+  console.log('浏览器端')
+  // 👉️ 可以使用 localStorage 
+} else {
+  console.log('服务器端r')
+  // 👉️ 不可以使用 localStorage
+}
+const person = { firstName: 'Robin', lastName: 'Wieruch' };
+localStorage.setItem('user', JSON.stringify(person));
+const stringifiedPerson = localStorage.getItem('user');
+const personAsObjectAgain = JSON.parse(stringifiedPerson);
+console.log(personAsObjectAgain);
+
+	
+}
+
+
+let quizQuestions=[];
 
 class App extends Component {
     constructor(props) {
         super(props);
-       console.log('quizQuestions',quizQuestions);
+      // console.log('quizQuestions',quizQuestions);
         this.state = {
             counter: 0,
             questionId: 1,
@@ -19,11 +38,45 @@ class App extends Component {
             result: '',
 		    rightAnswers:[]
         };
-
+			//test();//测试能否使用本地存储以及本地存储用法
+//quizQuestions=initQuestions;
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     }
+	/*
+	读取源数据：1,2,3,4,5,6,7,8,9,10
 
+	if本地存储为空，
+		将源数据加载到本地存储
+	else
+		从本地存储取数，存入数组
+		数组切片取出5题1,2,3,4,5,填充进qustion数组
+		剩余数据写回本地存储
+*/
+    initQuestion(){
+		//console.log('本地存储',JSON.parse(localStorage.getItem('is-open')))
+	//console.log('本地存储字符串',localStorage.getItem('question')=='[]');
+		if (!JSON.parse(localStorage.getItem('question')) || localStorage.getItem('question')=='[]')
+		{
+       // console.log("本地存储为空");
+		localStorage.setItem('question', JSON.stringify(initQuestions));
+		}
+//	console.log('本地存储详细内容',JSON.parse(localStorage.getItem('question')));
+let arr = JSON.parse(localStorage.getItem('question'))
+		for (let i=0;i<2;i++)
+			{
+			let r=Math.floor(Math.random()*arr.length);
+			quizQuestions=quizQuestions.concat(arr.splice(r,1));
+
+			}
+	    	localStorage.setItem('question', JSON.stringify(arr));
+		//   console.log("本地存储不为空");
+		
+	
+		
+	}
+    
     componentDidMount() {
+		this.initQuestion();	
         const shuffledAnswerOptions = quizQuestions.map(question =>
             this.shuffleArray(question.answers)
         );//返回选项随机后的数组
@@ -33,6 +86,7 @@ class App extends Component {
 			rightAnswers:quizQuestions[0].rightAnswers
         });
     }
+
 
 //这个函数的作用就是随机排列选项
     shuffleArray(array) {
@@ -56,8 +110,9 @@ class App extends Component {
     }
 
     handleAnswerSelected(event) {
+		
         this.setUserAnswer(event.currentTarget.value);
-       console.log('下一个问题',this.state.questionId,quizQuestions.length )
+      // console.log('下一个问题',this.state.questionId,quizQuestions.length )
         if (this.state.questionId < quizQuestions.length) {
             setTimeout(() => this.setNextQuestion(), 300);
         } else {

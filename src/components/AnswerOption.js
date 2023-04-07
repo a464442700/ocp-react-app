@@ -15,28 +15,32 @@ export default function AnswerOption(props) {
         ([a,b])=>{return a}
         );
     
-console.log('处理后的数据：',answerList)  ;  
+//console.log('处理后的数据：',answerList,rightList)  ;  
+
 return answerList.sort().toString()===rightList.sort().toString()
 
 	  
   };
   
    const  [checkedState, setCheckedState]  =props.checkedStates;//checkedState是map
-console.log('AnswerOption props',props)
-console.log('AnswerOption checkedState',checkedState)
-  const handleOnChange =()=>{
+//console.log('AnswerOption props',props)
+//console.log('AnswerOption checkedState',checkedState)
+  const handleOnChange =(event)=>{
   if ( checkedState.has(props.answerType) ){
 	setCheckedState(()=>	checkedState.set(props.answerType,  !checkedState.get(props.answerType)  ));
-			console.log('AnswerOptioncheckedState',checkedState)
+		//	console.log('AnswerOptioncheckedState',checkedState)
 
   } else{
 	setCheckedState(()=>	checkedState.set(props.answerType,true));
-		console.log('AnswerOptioncheckedState',checkedState)
+	//	console.log('AnswerOptioncheckedState',checkedState)
 	};
 	
 	if (isRightAnswer(checkedState,props.rightAnswer))
 	{
-		props.onAnswerSelected();
+			setCheckedState(()=>	new Map() ); 
+		//console.log('清空map')
+		props.onAnswerSelected(event);
+	
 	}
 	
 	
@@ -56,7 +60,7 @@ console.log('AnswerOption checkedState',checkedState)
                 id={props.answerType}
                 value={props.answerType}
                 disabled={props.answer}
-				 onChange={() => handleOnChange()}
+				 onChange={(event) => handleOnChange(event)}
             />
             <label className="radioCustomLabel" htmlFor={props.answerType}>
                 {props.answerContent}

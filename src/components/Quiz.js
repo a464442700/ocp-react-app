@@ -14,8 +14,8 @@ function Quiz(props) {
 	   new Map
     );
   function renderAnswerOptions(key) {
-	  console.log('key',key);
-	  console.log('props.rightAnswer',props.rightAnswer);
+	//  console.log('key',key);
+	//  console.log('props.rightAnswer',props.rightAnswer);
 	   
     return (
       <AnswerOption
