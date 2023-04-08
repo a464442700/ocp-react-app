@@ -9,7 +9,7 @@ import {useState} from "react";
 function Quiz(props) {
 	
 	/*answerOptions是数组*/
- 
+  console.log('props.answerOptions',props.answerOptions)
 	   const [checkedState, setCheckedState] = useState(
 	   new Map
     );

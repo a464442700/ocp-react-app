@@ -55,14 +55,17 @@ class App extends Component {
     initQuestion(){
 		//console.log('本地存储',JSON.parse(localStorage.getItem('is-open')))
 	//console.log('本地存储字符串',localStorage.getItem('question')=='[]');
-		if (!JSON.parse(localStorage.getItem('question')) || localStorage.getItem('question')=='[]')
+		console.log('initQuestions,',initQuestions)
+		if (!JSON.parse(localStorage.getItem('question')) || Object.keys(JSON.parse(localStorage.getItem('question'))).length===0)
 		{
-       // console.log("本地存储为空");
+        console.log("本地存储为空");
 		localStorage.setItem('question', JSON.stringify(initQuestions));
 		}
 //	console.log('本地存储详细内容',JSON.parse(localStorage.getItem('question')));
 let arr = JSON.parse(localStorage.getItem('question'))
+
 		for (let i=0;i<2;i++)
+
 			{
 			let r=Math.floor(Math.random()*arr.length);
 			quizQuestions=quizQuestions.concat(arr.splice(r,1));
