@@ -13,6 +13,31 @@ function Quiz(props) {
 	   const [checkedState, setCheckedState] = useState(
 	   new Map
     );
+	
+	const showAnswer =(event)=>{
+		  event.stopPropagation();
+		//console.log(props.rightAnswer)
+		//setCheckedState(()=>	new Map());
+		//引用类型的值修改不会触发页面重新渲染
+		//setCheckedState(()=>{
+		//	"A":true
+		//});
+		const map=new Map()
+		
+		for (var i=0;i<props.rightAnswer.length;i++)
+{  // console.log('props.rightAnswer[i]',props.rightAnswer[i])
+  //  setCheckedState(()=>	checkedState.set(props.rightAnswer[i],true));
+  map.set(props.rightAnswer[i],true)
+}
+		console.log('点击答案显示字典',map)
+		setCheckedState(()=>	map);
+	//props.onAnswerSelected(event)
+	}
+	const nextQuestion=(event)=>{
+		setCheckedState(()=>	new Map());
+		props.onAnswerSelected(event)
+	}
+	
   function renderAnswerOptions(key) {
 	//  console.log('key',key);
 	//  console.log('props.rightAnswer',props.rightAnswer);
@@ -48,6 +73,10 @@ function Quiz(props) {
           {props.answerOptions.map(renderAnswerOptions)}{/*map方法产生列表*/}
         </ul>
       </div>
+	  <div class="table">
+	  <div class="button" onClick={(event) => showAnswer(event)} >show answer</div>
+	  	  <div  class="button" onClick={(event) => nextQuestion(event)} >next question</div>
+  </div>
     </CSSTransitionGroup>
   );
 }

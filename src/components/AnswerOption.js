@@ -24,8 +24,12 @@ return answerList.sort().toString()===rightList.sort().toString()
   
    const  [checkedState, setCheckedState]  =props.checkedStates;//checkedState是map
 //console.log('AnswerOption props',props)
-//console.log('AnswerOption checkedState',checkedState)
+
   const handleOnChange =(event)=>{
+	  console.log('显示当前字典',checkedState,props.answerType)
+	 
+
+	  
   if ( checkedState.has(props.answerType) ){
 	setCheckedState(()=>	checkedState.set(props.answerType,  !checkedState.get(props.answerType)  ));
 		//	console.log('AnswerOptioncheckedState',checkedState)
@@ -60,7 +64,7 @@ return answerList.sort().toString()===rightList.sort().toString()
                 id={props.answerType}
                 value={props.answerType}
                 disabled={props.answer}
-				 onChange={(event) => handleOnChange(event)}
+				onChange={(event) => handleOnChange(event)}
             />
             <label className="radioCustomLabel" htmlFor={props.answerType}>
                 {props.answerContent}

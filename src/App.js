@@ -64,7 +64,7 @@ class App extends Component {
 //	console.log('本地存储详细内容',JSON.parse(localStorage.getItem('question')));
 let arr = JSON.parse(localStorage.getItem('question'))
 
-		for (let i=0;i<2;i++)
+		for (let i=0;i<5;i++)
 
 			{
 			let r=Math.floor(Math.random()*arr.length);
