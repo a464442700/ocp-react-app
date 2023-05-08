@@ -40,7 +40,7 @@ function Quiz(props) {
 	
   function renderAnswerOptions(key) {
 	//  console.log('key',key);
-	//  console.log('props.rightAnswer',props.rightAnswer);
+	 console.log('props.rightAnswer',props.rightAnswer);
 	   
     return (
       <AnswerOption

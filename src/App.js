@@ -4,30 +4,31 @@ import Quiz from './components/Quiz';
 import Result from './components/Result';
 import logo from './svg/oracle.png';
 import './App.css';
-function test(){
-	if (typeof window !== 'undefined') {
-  console.log('浏览器端')
-  // 👉️ 可以使用 localStorage 
-} else {
-  console.log('服务器端r')
-  // 👉️ 不可以使用 localStorage
+
+function test() {
+    if (typeof window !== 'undefined') {
+        console.log('浏览器端')
+        // 👉️ 可以使用 localStorage
+    } else {
+        console.log('服务器端r')
+        // 👉️ 不可以使用 localStorage
+    }
+    const person = {firstName: 'Robin', lastName: 'Wieruch'};
+    localStorage.setItem('user', JSON.stringify(person));
+    const stringifiedPerson = localStorage.getItem('user');
+    const personAsObjectAgain = JSON.parse(stringifiedPerson);
+    console.log(personAsObjectAgain);
+
+
 }
-const person = { firstName: 'Robin', lastName: 'Wieruch' };
-localStorage.setItem('user', JSON.stringify(person));
-const stringifiedPerson = localStorage.getItem('user');
-const personAsObjectAgain = JSON.parse(stringifiedPerson);
-console.log(personAsObjectAgain);
-
-	
-}
 
 
-let quizQuestions=[];
+let quizQuestions = [];
 
 class App extends Component {
     constructor(props) {
         super(props);
-      // console.log('quizQuestions',quizQuestions);
+        // console.log('quizQuestions',quizQuestions);
         this.state = {
             counter: 0,
             questionId: 1,
@@ -36,63 +37,65 @@ class App extends Component {
             answer: '',
             answersCount: {},
             result: '',
-		    rightAnswers:[]
+            rightAnswers: []
         };
-			//test();//测试能否使用本地存储以及本地存储用法
+        //test();//测试能否使用本地存储以及本地存储用法
 //quizQuestions=initQuestions;
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     }
-	/*
-	读取源数据：1,2,3,4,5,6,7,8,9,10
 
-	if本地存储为空，
-		将源数据加载到本地存储
-	else
-		从本地存储取数，存入数组
-		数组切片取出5题1,2,3,4,5,填充进qustion数组
-		剩余数据写回本地存储
+    /*
+    读取源数据：1,2,3,4,5,6,7,8,9,10
+
+    if本地存储为空，
+        将源数据加载到本地存储
+    else
+        从本地存储取数，存入数组
+        数组切片取出5题1,2,3,4,5,填充进qustion数组
+        剩余数据写回本地存储
 */
-    initQuestion(){
-		//console.log('本地存储',JSON.parse(localStorage.getItem('is-open')))
-	//console.log('本地存储字符串',localStorage.getItem('question')=='[]');
-		console.log('initQuestions,',initQuestions)
-		if (!JSON.parse(localStorage.getItem('question')) || Object.keys(JSON.parse(localStorage.getItem('question'))).length===0)
-		{
-        console.log("本地存储为空");
-		localStorage.setItem('question', JSON.stringify(initQuestions));
-		}
+    initQuestion() {
+        quizQuestions = initQuestions;
+        //console.log('本地存储',JSON.parse(localStorage.getItem('is-open')))
+        //console.log('本地存储字符串',localStorage.getItem('question')=='[]');
+        //console.log('initQuestions,',initQuestions)
+        //if (!JSON.parse(localStorage.getItem('question')) || Object.keys(JSON.parse(localStorage.getItem('question'))).length===0)
+        //{
+        // console.log("本地存储为空");
+        //localStorage.setItem('question', JSON.stringify(initQuestions));
+        //}
 //	console.log('本地存储详细内容',JSON.parse(localStorage.getItem('question')));
-let arr = JSON.parse(localStorage.getItem('question'))
+//let arr = JSON.parse(localStorage.getItem('question'))
 
-		for (let i=0;i<5;i++)
+        //	for (let i=0;i<110;i++)
 
-			{
-			let r=Math.floor(Math.random()*arr.length);
-			quizQuestions=quizQuestions.concat(arr.splice(r,1));
+//{
+        //	let r=Math.floor(Math.random()*arr.length);
+        //quizQuestions=quizQuestions.concat(arr.splice(r,1));
 
-			}
-	    	localStorage.setItem('question', JSON.stringify(arr));
-		//   console.log("本地存储不为空");
-		
-	
-		
-	}
-    
+        //}
+        //localStorage.setItem('question', JSON.stringify(arr));
+        //   console.log("本地存储不为空");
+
+
+    }
+
     componentDidMount() {
-		this.initQuestion();	
+        this.initQuestion();
         const shuffledAnswerOptions = quizQuestions.map(question =>
             this.shuffleArray(question.answers)
         );//返回选项随机后的数组
         this.setState({
             question: quizQuestions[0].question,//初始化question
             answerOptions: shuffledAnswerOptions[0],//返回随机排列后的选项
-			rightAnswers:quizQuestions[0].rightAnswers
+            rightAnswers: quizQuestions[0].rightAnswers
         });
     }
 
 
 //这个函数的作用就是随机排列选项
     shuffleArray(array) {
+        if(false){//打乱顺序去掉
         var currentIndex = array.length,
             temporaryValue,
             randomIndex;
@@ -108,14 +111,14 @@ let arr = JSON.parse(localStorage.getItem('question'))
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
         }
-
+        }
         return array;
     }
 
     handleAnswerSelected(event) {
-		
+
         this.setUserAnswer(event.currentTarget.value);
-      // console.log('下一个问题',this.state.questionId,quizQuestions.length )
+        // console.log('下一个问题',this.state.questionId,quizQuestions.length )
         if (this.state.questionId < quizQuestions.length) {
             setTimeout(() => this.setNextQuestion(), 300);
         } else {
@@ -132,17 +135,20 @@ let arr = JSON.parse(localStorage.getItem('question'))
             answer: answer
         }));
     }
-  //完成回答一题则重新刷新状态
+
+    //完成回答一题则重新刷新状态
     setNextQuestion() {
+
         const counter = this.state.counter + 1;
         const questionId = this.state.questionId + 1;
-
+        console.log('当前计数',counter);
+        console.log('当前题的正确答案',quizQuestions[counter].rightAnswers);
         this.setState({
             counter: counter,
             questionId: questionId,
             question: quizQuestions[counter].question,
             answerOptions: quizQuestions[counter].answers,
-			rightAnswer:quizQuestions[counter].rightAnswers,
+            rightAnswers: quizQuestions[counter].rightAnswers,
             answer: ''
         });
     }
@@ -173,7 +179,7 @@ let arr = JSON.parse(localStorage.getItem('question'))
                 question={this.state.question}
                 questionTotal={quizQuestions.length}
                 onAnswerSelected={this.handleAnswerSelected}
-				rightAnswer={this.state.rightAnswers}
+                rightAnswer={this.state.rightAnswers}
             />
         );
     }
