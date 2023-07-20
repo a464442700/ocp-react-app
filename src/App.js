@@ -59,25 +59,28 @@ class App extends Component {
         //console.log('本地存储',JSON.parse(localStorage.getItem('is-open')))
         //console.log('本地存储字符串',localStorage.getItem('question')=='[]');
         //console.log('initQuestions,',initQuestions)
-        //if (!JSON.parse(localStorage.getItem('question')) || Object.keys(JSON.parse(localStorage.getItem('question'))).length===0)
-        //{
-        // console.log("本地存储为空");
-        //localStorage.setItem('question', JSON.stringify(initQuestions));
-        //}
+		if (true){//题目随机取10个
+		 quizQuestions = [];
+        if (!JSON.parse(localStorage.getItem('question')) || Object.keys(JSON.parse(localStorage.getItem('question'))).length===0)
+        {
+         console.log("本地存储为空");
+        localStorage.setItem('question', JSON.stringify(initQuestions));
+        }
 //	console.log('本地存储详细内容',JSON.parse(localStorage.getItem('question')));
-//let arr = JSON.parse(localStorage.getItem('question'))
+let arr = JSON.parse(localStorage.getItem('question'))
 
-        //	for (let i=0;i<110;i++)
+        	for (let i=0;i<10;i++)
 
-//{
-        //	let r=Math.floor(Math.random()*arr.length);
-        //quizQuestions=quizQuestions.concat(arr.splice(r,1));
+{
+        let r=Math.floor(Math.random()*arr.length);//随机从题库中取1题
+		console.log("r:"+r);
+        quizQuestions=quizQuestions.concat(arr.splice(r,1));//从题库删掉着一题
 
-        //}
-        //localStorage.setItem('question', JSON.stringify(arr));
+        }
+        localStorage.setItem('question', JSON.stringify(arr));
         //   console.log("本地存储不为空");
 
-
+		}
     }
 
     componentDidMount() {
@@ -95,7 +98,7 @@ class App extends Component {
 
 //这个函数的作用就是随机排列选项
     shuffleArray(array) {
-        if(false){//打乱顺序去掉
+        if(true){//打乱顺序去掉
         var currentIndex = array.length,
             temporaryValue,
             randomIndex;
